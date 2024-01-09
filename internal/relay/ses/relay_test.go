@@ -248,9 +248,12 @@ func TestNew(t *testing.T) {
 	setName := ""
 	allowFromRegExp, _ := regexp.Compile(`^admin@example\.org$`)
 	denyToRegExp, _ := regexp.Compile(`^bob@example\.org$`)
-	client := New(&setName, allowFromRegExp, denyToRegExp, 10*1024*1024)
+	client, err := New(&setName, allowFromRegExp, denyToRegExp, 10*1024*1024)
+	if err != nil {
+		t.Errorf("Unexpected error: %s", err)
+	}
 	typ := reflect.TypeOf(client).String()
-	if typ != "ses.Client" {
+	if typ != "*ses.Client" {
 		t.Errorf("Unexpected: client is not a relay.Client:%v", typ)
 	}
 	if client.setName != &setName {

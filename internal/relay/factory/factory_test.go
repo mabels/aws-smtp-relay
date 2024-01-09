@@ -42,7 +42,7 @@ func TestConfigureWithSesRelay(t *testing.T) {
 	}
 	typ := reflect.TypeOf(client).String()
 
-	if typ != "ses.Client" {
+	if typ != "*ses.Client" {
 		t.Errorf("Unexpected type: %s", typ)
 	}
 
